@@ -80,40 +80,41 @@ for org_file in org_files:
     # 5文字揃え
     df_name_5justy = [ntzstr.name5justify(name) for name in df["氏名"]]
     # 写真の読み込みとSeries化
-    ser_photo = pd.Series(glob.glob('./_org/*.psd'), name = '@写真名')
+    ser_photo = pd.Series(glob.glob('./_org/*.psd'))
     for idx, photo_file in ser_photo.iteritems():
         basename, ext = os.path.splitext(os.path.basename(photo_file))
         ser_photo[idx] = basename
 
     # 抜き取る写真ファイルのインデックスを検索する。
     # 対応するdf_nameをforで回す。
+    tmp_arr = []
     for idx in range(len(df_name)):
         # 不思議な書き方。df、df_name、ser_photoと個数が合致するDataFrameだったら何でもかまわない。
         catch_idx = ser_photo[ser_photo.str.contains(df_name['氏'][idx]) & ser_photo.str.contains(df_name['名'][idx])].index
         order = idx + 1
         name = f'img_{order:03}_{df_name_5justy[idx]}'
         if not catch_idx.size == 0:
-            if catch_idx[0] >= 0:
-                ser_photo_name = ser_photo[catch_idx[0]]
-                os.rename(f'./_org/{ser_photo_name}.psd', f'./_gen/{name}.psd')
+            ser_photo_name = ser_photo[catch_idx[0]]
+            os.rename(f'./_org/{ser_photo_name}.psd', f'./_gen/{name}.psd')
         else:
             shutil.copy2(f'./_org/〓〓〓〓.psd', f'./_gen/{name}.psd')
+        tmp_arr.append(f'{name}.psd')
+    df['@写真名'] = tmp_arr
 
 
-    # # CSVとして書き出し
-    # to_gen_file = os.path.join('./_gen', filename)
-    # df.to_csv(to_gen_file,
-    #     encoding = "utf-16",
-    #     index = False,
-    #     columns = ['氏名ルビ付', '役職', '教科・科目', '部活動', 'エピソード', '@写真名'],
-    #     sep = ',')
-
+    # CSVとして書き出し
+    to_gen_file = os.path.join('./_gen', filename)
+    df.to_csv(to_gen_file,
+        encoding = "utf-16",
+        index = False,
+        columns = ['氏名ルビ付', '@写真名', '役職', '担当', '部活動', 'エピソード'],
+        sep = ',')
 
     # # #####################
     # # ### オリジナルと中間ファイルを削除する。
     # # # 検証をするときはこれらを外す。
     # # os.remove(org_file)
-    # # os.remove(to_tmp_file)
+    os.remove(to_tmp_file)
 
 # # nanだけの不要な行列を削除する。
 # # df = df.dropna(how='all').dropna(how='all', axis = 1)
