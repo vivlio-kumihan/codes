@@ -117,38 +117,32 @@ for org_file in org_files:
         name = name.split()
         if len(name) == 2:
             name.insert(0, '〓')
-            name.insert(1, '〓')
-            name.insert(2, '〓')
             df2['担当'].iloc[idx] = name
         elif len(name) == 3:
-            name.insert(4, '〓')
-            name.insert(5, '〓')
             df2['担当'].iloc[idx] = name
         else:
-            df2['担当'].iloc[idx] = ['〓', '〓', '〓', '〓', '〓']
+            df2['担当'].iloc[idx] = ['〓', '〓', '〓']
 
     tmp_arr = []
     for val in df2['担当']:
         tmp_arr.append(val)
     df3 = pd.DataFrame(tmp_arr)
     df3 = df3.drop(columns = df3.columns[5:])
-    df3.columns = ['役職', '氏（役職）', '名（役職）', '氏', '名']
-    df3['氏名（役職）'] = df3['氏（役職）'] + "　" + df3['名（役職）']
-    df3['氏名（役職）'] = [ntzstr.name4justify(name) for name in df3['氏名（役職）']]
+    df3.columns = ['役職', '氏', '名']
     df3['氏名'] = df3['氏'] + "　" + df3['名']
     df3['氏名'] = [ntzstr.name4justify(name) for name in df3['氏名']]
     # ゲタを外す。
-    for col, ser in df3[['役職', '氏名（役職）', '氏名']].iteritems():
+    for col, ser in df3[['役職', '氏名']].iteritems():
         df3[col] = df3[col].str.replace(pat='\s?〓\s?', repl='')
     
-    df2 = pd.concat([df2, df3['役職'], df3['氏名（役職）'], df3['氏名']], axis = 1)
+    df2 = pd.concat([df2, df3['役職'], df3['氏名']], axis = 1)
 
     ########## CSVに上書きして完成
     to_gen_file = os.path.join('./_gen', filename)
     df2.to_csv(to_gen_file,
         encoding = "utf-16",
         index = False,
-        columns = ['郵便', '住所','会社', '役職', '氏名（役職）', '氏名'],
+        columns = ['郵便', '住所','会社', '役職', '氏名'],
         sep = ',')
 
     # #####################

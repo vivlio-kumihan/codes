@@ -81,7 +81,7 @@ for org_file in file_paths:
     # CSVとして書き出し
     to_gen_file = os.path.join('./_gen', filename)
     df.to_csv(to_gen_file,
-        encoding = "utf-16",
+        encoding = "utf-8",
         index = False,
         # columns = ["氏名ルビ付", "役職", "〒", "事務所所在地", "電話", "FAX", "メール"],
         columns = ['肩書と名前', '遊戯名', '理由'],
