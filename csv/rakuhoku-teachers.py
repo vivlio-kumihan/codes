@@ -110,11 +110,11 @@ for org_file in org_files:
         columns = ['氏名ルビ付', '@写真名', '役職', '担当', '部活動', 'エピソード'],
         sep = ',')
 
-    # # #####################
-    # # ### オリジナルと中間ファイルを削除する。
-    # # # 検証をするときはこれらを外す。
-    # # os.remove(org_file)
-    os.remove(to_tmp_file)
+    # #####################
+    # ### オリジナルと中間ファイルを削除する。
+    # # 検証をするときはこれらを外す。
+    # os.remove(org_file)
+    # os.remove(to_tmp_file)
 
 # # nanだけの不要な行列を削除する。
 # # df = df.dropna(how='all').dropna(how='all', axis = 1)
