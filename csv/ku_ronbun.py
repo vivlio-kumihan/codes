@@ -53,7 +53,8 @@ for org_file in org_files:
     for idx in en_idx:
         tmp_df1 = tmp_df1.append(df.iloc[idx])
     tmp_df1['著者'] = '■' + tmp_df1['著者'] + '■'
-    tmp_df1['論文タイトルと雑誌名'] = tmp_df1['論文タイトル'] + '▼' + tmp_df1['雑誌名＆巻-号-ページ']
+    tmp_df1['論文タイトル'] = '“' + tmp_df1['論文タイトル'] + '”'
+    # tmp_df1['論文タイトルと雑誌名'] = tmp_df1['論文タイトル'] + '▼' + tmp_df1['雑誌名＆巻-号-ページ']
 
     tmp_arr = []
     for idx, cell in tmp_df1['著者'].iteritems():
@@ -68,7 +69,7 @@ for org_file in org_files:
     tmp_df1['著者'] = tmp_arr
 
     tmp_arr = []
-    for idx, cell in tmp_df1['論文タイトルと雑誌名'].iteritems():
+    for idx, cell in tmp_df1['論文タイトル'].iteritems():
         cell = re.sub('　', ' ', cell) # 英文に全角スペースで間隔を調整しているのを直す。
         cell = re.sub('\s?,\s?', ', ', cell) # カンマの統一
         cell = re.sub(':\s?', ': ', cell) # コロンの統一
@@ -77,14 +78,26 @@ for org_file in org_files:
         cell = re.sub('\s\s?', ' ', cell) # あえてスペースのダブりを1つに変更する。
         cell = re.sub('〓', '', cell) # 最後に〓をトル。
         tmp_arr.append(cell)
-    tmp_df1['論文タイトルと雑誌名'] = tmp_arr
+    tmp_df1['論文タイトル'] = tmp_arr
+
+    tmp_arr = []
+    for idx, cell in tmp_df1['雑誌名＆巻-号-ページ'].iteritems():
+        cell = re.sub('　', ' ', cell) # 英文に全角スペースで間隔を調整しているのを直す。
+        cell = re.sub('\s?,\s?', ', ', cell) # カンマの統一
+        cell = re.sub(':\s?', ': ', cell) # コロンの統一
+        cell = re.sub(';\s?', '; ', cell) # セミコロンの統一
+        cell = re.sub('\s?[)\(（](.+?)[\)）]\s?', r'(\1)', cell) # 英文に全角カッコを入れているのを適宜修正。
+        cell = re.sub('\s\s?', ' ', cell) # あえてスペースのダブりを1つに変更する。
+        cell = re.sub('〓', '', cell) # 最後に〓をトル。
+        tmp_arr.append(cell)
+    tmp_df1['雑誌名＆巻-号-ページ'] = tmp_arr
 
     ########## CSVに上書きして完成
     to_gen_file = os.path.join('./_gen', f'en_{filename}')
     tmp_df1.to_csv(to_gen_file,
         encoding = "utf-8",
         index = False,
-        columns = ['著者', '論文タイトルと雑誌名'],
+        columns = ['発行年', '著者', '論文タイトル', '雑誌名＆巻-号-ページ'],
         sep = '\t')
 
     ########## アンカーを元に同じグループのものを縦につまんでいく。

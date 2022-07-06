@@ -98,6 +98,9 @@ for org_file in org_files:
                     cell = re.sub('\s\s+', ' ', cell) # あえてスペースのダブりを1つに変更する。
                     tmp_arr.append(cell)
             tdf_en[col] = tmp_arr
+    
+    tdf_en['出演者'] = '■' + tdf_en['出演者'] + '▼'
+    tdf_en['演題'] = '“' + tdf_en['演題'] + '”'
 
     ########## CSVに上書きして完成
     to_gen_file = os.path.join('./_gen', f'en_{filename}')
@@ -157,6 +160,10 @@ for org_file in org_files:
                 justifed_shimei = name
             tmp_groups.append(justifed_shimei)
         tdf_ja['出演者'][idx] = '、'.join(tmp_groups)
+
+    tdf_ja['出演者'] = '■' + tdf_ja['出演者'] + '▼'
+    tdf_ja['演題'] = tdf_ja['演題'] + '▼'
+
 
     ######### CSVに上書きして完成
     to_gen_file = os.path.join('./_gen', f'ja_{filename}')
