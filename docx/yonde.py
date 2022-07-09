@@ -58,7 +58,7 @@ for fp in file_path:
         elif run.font.superscript:
           run.font.superscript = False
           run.font.color.rgb = RGBColor(95, 40, 10)
-          # run.text = f'<sps>{run.text}</ss>'
+          # run.text = f'<sps>{run.text}</sps>'
         # 下付 subscript
         elif run.font.subscript:
           run.font.subscript = False
@@ -67,7 +67,16 @@ for fp in file_path:
         else:
           continue
           
-    doc.save(f'+++modify_{basename}{ext}')
+    doc.save(f'+++modified_{basename}{ext}')
 
 # ########## other methods
 # print("段落の個数：", len(doc.paragraphs))
+
+# ########## sample text
+# 'ｺﾉｻｲﾀﾞｶﾗ ﾊﾝｶｸﾓｼﾞﾍﾝｼｭｦ ｾﾞﾝｶｸﾆ ﾍﾝｶﾝｼﾀｲﾃﾞｽﾖﾈ'
+# 日本語の[文章]に欧文の(カッコ)が入っているのも変換したい。
+# 本来はInDesignの [文字組設定] で解決できるのに、見た目上の (欧文スペース) が入っているやつも。
+# それと、１２３４５６７８９０はアラビア数字、ＡＢＣＤ...ＸＹＺはASCIIで統一しておきたい。
+# 文章行頭の一字下げや意図的な字下げは、InDesignで操作したいので、行頭のスペースやタブを削除しておきたい。
+
+abcdefg!@#$%^&*()_+-=;':",./<>?"ａｂｃｄｅｆｇ！＠＃＄％＾＆＊（）＿＋−＝；’：”，．／＜＞？”

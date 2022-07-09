@@ -7,6 +7,22 @@ sys.path.append('../lib')
 import ntzstr
 import ntznum
 
+def txt_reg(ins):
+    for label in df.columns:
+    tmp_df = []
+    for cell in df[label]:
+        if isinstance(cell, float):
+            tmp_df.append(cell)
+        elif isinstance(cell, int):
+            tmp_df.append(cell)
+        elif cell is np.nan:
+            tmp_df.append(cell)
+        else:
+            # 入ってきたcellに正規化を充てる。
+            cell = ntzreg.cellstr(cell)
+            tmp_df.append(cell)
+    df[label] = tmp_df
+
 def csv_reg(df_in):
     rows = []
     # valuesメソッドで1行ごとに文字列を整理していく。

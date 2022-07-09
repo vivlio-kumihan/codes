@@ -2,7 +2,7 @@ import glob
 import os
 import sys
 sys.path.append('../lib')
-import t14i_regex
+import ntzreg
 from docx2python import docx2python
 from docx2python.iterators import iter_paragraphs
 
@@ -16,7 +16,7 @@ for file in file_path:
 
     # 本文、ルビ、脚注を抜き出すメソッドを呼んで、オブジェクトに格納する。
     doc = '\n'.join(iter_paragraphs(content.document))
-    contents = t14i_regex.text_ins_reg(doc)
+    contents = ntzreg.text_ins_reg(doc)
     with open(f'{basename}.txt', "w") as f:
         f.write(contents)
 

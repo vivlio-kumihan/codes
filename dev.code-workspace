@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../csv"
+		},
+		{
+			"path": "python/for_work/csv_old"
+		},
+		{
+			"path": "../lib"
+		},
+		{
+			"path": "../pdf"
+		},
+		{
+			"path": "../docx"
+		}
+	],
+	"settings": {}
+}

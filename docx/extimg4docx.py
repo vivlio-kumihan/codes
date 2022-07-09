@@ -1,11 +1,17 @@
+import glob
+import os
+import sys
 import zipfile
 from pathlib import Path
 
-docx_path = Path("doc_files/sample1.docx")
+file_path = glob.glob("./*.docx")
+
+docx_path = Path(file_path[0])
+# これは関数か？　ZIPファイルをこれで解凍している。
 docx_zip = zipfile.ZipFile(docx_path)
 zipped_files = docx_zip.namelist()
 
-# 画像を保存するフォルダー
+# 画像を保存するフォルダーの生成
 img_dir = Path("doc_images")
 img_dir.mkdir(exist_ok=True)
 
