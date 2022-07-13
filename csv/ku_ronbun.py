@@ -83,9 +83,9 @@ for org_file in org_files:
     tmp_arr = []
     for idx, cell in tmp_df1['雑誌名＆巻-号-ページ'].iteritems():
         cell = re.sub('　', ' ', cell) # 英文に全角スペースで間隔を調整しているのを直す。
-        cell = re.sub('\s?,\s?', ', ', cell) # カンマの統一
-        cell = re.sub(':\s?', ': ', cell) # コロンの統一
-        cell = re.sub(';\s?', '; ', cell) # セミコロンの統一
+        # cell = re.sub('\s?,\s?', ', ', cell) # カンマの統一
+        # cell = re.sub(':\s?', ': ', cell) # コロンの統一
+        # cell = re.sub(';\s?', '; ', cell) # セミコロンの統一
         cell = re.sub('\s?[)\(（](.+?)[\)）]\s?', r'(\1)', cell) # 英文に全角カッコを入れているのを適宜修正。
         cell = re.sub('\s\s?', ' ', cell) # あえてスペースのダブりを1つに変更する。
         cell = re.sub('〓', '', cell) # 最後に〓をトル。

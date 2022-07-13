@@ -68,6 +68,10 @@ for fp in file_path:
           continue
           
     doc.save(f'+++modified_{basename}{ext}')
+    content = []
+    for pgh in doc.paragraphs:
+      content.append(pgh.text)
+    print(content)
 
 # ########## other methods
 # print("段落の個数：", len(doc.paragraphs))
@@ -79,4 +83,4 @@ for fp in file_path:
 # それと、１２３４５６７８９０はアラビア数字、ＡＢＣＤ...ＸＹＺはASCIIで統一しておきたい。
 # 文章行頭の一字下げや意図的な字下げは、InDesignで操作したいので、行頭のスペースやタブを削除しておきたい。
 
-abcdefg!@#$%^&*()_+-=;':",./<>?"ａｂｃｄｅｆｇ！＠＃＄％＾＆＊（）＿＋−＝；’：”，．／＜＞？”
+# abcdefg!@#$%^&*()_+-=;':",./<>?"ａｂｃｄｅｆｇ！＠＃＄％＾＆＊（）＿＋−＝；’：”，．／＜＞？”
