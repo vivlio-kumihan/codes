@@ -71,7 +71,6 @@ for fp in file_path:
     content = []
     for pgh in doc.paragraphs:
       content.append(pgh.text)
-    print(content)
 
 # ########## other methods
 # print("段落の個数：", len(doc.paragraphs))

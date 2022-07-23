@@ -17,9 +17,12 @@ def name4justify(ins):
         name = ins.split()
         uji_size = len(name[0])
         mei_size = len(name[1])
-        # 〓　〓 or 〓　〓〓 or 〓〓　〓 or 〓　〓〓〓 or 〓〓〓　〓
-        if uji_size == 1 and mei_size == 1 or uji_size == 1 and mei_size == 2 or uji_size == 2 and mei_size == 1 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
+        # 〓　〓〓 or 〓〓　〓 or 〓　〓〓〓 or 〓〓〓　〓
+        if uji_size == 1 and mei_size == 2 or uji_size == 2 and mei_size == 1 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
             justifed_name = f'{name[0]}　{name[1]}'
+        # 〓　〓
+        elif uji_size == 1 and mei_size == 1:
+            justifed_name = f'{name[0]}　　{name[1]}'
         else:
             justifed_name = f'{name[0]}{name[1]}'
     else:

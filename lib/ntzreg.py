@@ -118,7 +118,7 @@ def cellstr(str, option = "zs"):
     # 前後のスペース（複数含む）を削除する。
     str = str.strip()
     # セル内改行を取り除く。
-    str = str.replace('\n', '▽')
+    str = str.replace('\n', '▼')
     # 半角カタカナを全角に変換する。
     str = jaconv.h2z(str)
 
