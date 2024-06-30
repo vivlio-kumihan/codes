@@ -2,10 +2,9 @@
 
 class Main {
   constructor() {
-    this._init();
-  }
-
-  _init() {
-    
+    this.setSetsubunIns = new SetSetsubun();
+    new SelectFourEvents(this.setSetsubunIns);
   }
 }
+
+new Main();
