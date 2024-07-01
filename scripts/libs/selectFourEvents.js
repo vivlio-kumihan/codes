@@ -3,7 +3,7 @@
 class SelectFourEvents {
   constructor(setSetsubunIns) {
     this.currentYear = new Date().getFullYear();
-    this.nowDate = new Date(2024, 1, 1);
+    this.nowDate = new Date();
     this.setSetsubunIns = setSetsubunIns;
     this.events = [
       { year: this.currentYear, month: 0, agendaDay: [1], evnentTitle: "マキハシャレイ", image: "" },
